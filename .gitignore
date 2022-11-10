@@ -1,2 +1,3 @@
-old-demo/
+*.tfvars
+azurek8s
 .terraform*
