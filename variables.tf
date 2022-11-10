@@ -1,19 +1,3 @@
-# variable "subscription_id" {
-#   description = ""
-# }
-
-# variable "tenant_id" {
-#   description = ""
-# }
-
-# variable "client_id" {
-#   description = ""
-# }
-
-# variable "client_secret" {
-#   description = ""
-# }
-
 variable "cluster_name" {
   description = ""
 }
@@ -22,7 +6,6 @@ variable "dns_prefix" {
   description = ""
 }
 
-# Refer to https://azure.microsoft.com/global-infrastructure/services/?products=monitor for available Log Analytics regions.
 variable "log_analytics_workspace" {
   description = ""
 }

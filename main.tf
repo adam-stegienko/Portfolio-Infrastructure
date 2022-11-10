@@ -1,10 +1,6 @@
 module "Kubernetes" {
-  source = "../Kubernetes"
+  source = "./Kubernetes"
 
-  # subscription_id                  = var.subscription_id
-  # tenant_id                        = var.tenant_id
-  # client_id                        = var.client_id
-  # client_secret                    = var.client_secret
   cluster_name            = var.cluster_name
   dns_prefix              = var.dns_prefix
   log_analytics_workspace = var.log_analytics_workspace
