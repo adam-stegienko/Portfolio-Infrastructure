@@ -18,10 +18,6 @@ variable "ssh_public_key" {
   description = ""
 }
 
-variable "byte_length" {
-  description = ""
-}
-
 variable "tags" {
   description = ""
 }
