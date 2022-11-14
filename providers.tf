@@ -9,7 +9,12 @@ terraform {
       version = "~> 2.14.0"
     }
     helm = {
-      version = "2.4.1"
+      source  = "hashicorp/helm"
+      version = "~>2.7.1"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~>2.15.0"
     }
   }
   backend "azurerm" {
@@ -24,8 +29,8 @@ provider "azurerm" {
   features {}
 
   subscription_id = var.service_principal["subscription_id"]
-  client_id     = var.service_principal["client_id"]
-  client_secret = var.service_principal["client_secret"]
+  client_id       = var.service_principal["client_id"]
+  client_secret   = var.service_principal["client_secret"]
   tenant_id       = var.service_principal["tenant_id"]
 }
 
@@ -43,3 +48,7 @@ provider "kubernetes" {
 }
 
 data "azurerm_subscription" "current" {}
+
+module "helm_release" {
+  source = "git::git@github.com:adam-stegienko/Portfolio-Configuration.git"
+}

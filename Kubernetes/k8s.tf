@@ -38,13 +38,18 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     docker_bridge_cidr = var.network_profile["docker_bridge_cidr"]
     service_cidr       = var.network_profile["service_cidr"]
   }
-    service_principal {
+  service_principal {
     client_id     = var.service_principal["client_id"]
     client_secret = var.service_principal["client_secret"]
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 
   depends_on = [
     azurerm_virtual_network.adam-vnet
   ]
+
   tags = var.tags
 }
