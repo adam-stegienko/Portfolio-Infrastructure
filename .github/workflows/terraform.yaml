@@ -22,16 +22,22 @@ jobs:
     - name: Terraform Format
       run: terraform fmt -recursive
 
+    - name: Terraform Format Check
+      run: terraform fmt -check
+
     - name: Git Config Init
       run: |
         git config --global url."https://oauth2:${{ env.GITHUB_TOKEN }}@github.com".insteadOf ssh://git@github.com
+
+    - name: Terraform Init
+      run: |
         terraform init -upgrade
 
     - name: Terraform Validate
       run: terraform validate -no-color
 
     - name: Terraform Plan
-      run: terraform plan -no-color -var-file dev.tfvars
+      run: terraform plan -no-color -input=false
       continue-on-error: true
 
     - name: Terraform Plan Status
@@ -40,4 +46,4 @@ jobs:
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -var-file dev.tfvars -auto-approve
+      run: terraform apply -auto-approve -input=false
