@@ -15,9 +15,9 @@ jobs:
     
     - name: Terraform Format
       run: terraform fmt -recursive
-    
-    - name: Terraform Format
-      run: terraform fmt -recursive
+
+    - name: git config
+      run: git config --global url."https://oauth2:${{ secrets.ACCESS_TOKEN }}@github.com".insteadOf https://github.com
 
     - name: Terraform Init
       run: terraform init -upgrade
