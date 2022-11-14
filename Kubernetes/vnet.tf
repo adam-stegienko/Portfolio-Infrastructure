@@ -18,3 +18,12 @@ data "azurerm_subnet" "adam-subnet" {
   resource_group_name  = var.resource_group["name"]
   depends_on           = [azurerm_virtual_network.adam-vnet]
 }
+
+resource "azurerm_public_ip" "example" {
+  name                = "digital-planner-pip"
+  resource_group_name = var.resource_group["name"]
+  location            = var.resource_group["location"]
+  allocation_method   = "Static"
+
+  tags = var.tags
+}

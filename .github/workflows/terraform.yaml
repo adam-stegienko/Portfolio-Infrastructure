@@ -12,12 +12,79 @@ jobs:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}   
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      AZURE_SSH_KEY: ${{ secrets.AZURE_SSH_KEY }}
+      PRINCIPAL_ID: ${{ secrets.PRINCIPAL_ID }}
     name: 'Terraform'
     runs-on: ubuntu-latest
     steps:
     - name: SCM Checkout
       uses: actions/checkout@v3
+
+    - name: Terraform Workspace
+      run: |
+        terraform workspace new prod
+        terraform workspace select prod
+
+    - name: Terraform SSH key given
+      run: |
+        ${{ env.AZURE_SSH_KEY }} > ~/.ssh/azure-key.pub
+
+    - name: Terraform environmental (prod) values given
+      run: |
+        cat << EOF > prod.tfvars
+        service_principal = {
+          subscription_id = ${{ env.ARM_SUBSCRIPTION_ID }}
+          tenant_id       = ${{ env.ARM_TENANT_ID }}
+          client_id       = ${{ env.ARM_CLIENT_ID }}
+          client_secret   = ${{ env.ARM_CLIENT_SECRET }}
+          principal_id    = ${{ env.PRINCIPAL_ID }}
+        }
+
+        resource_group = {
+          location = "West Europe"
+          name     = "portfolio-develeap"
+          id       = "/subscriptions/5aca752c-8d85-4445-bf68-d30c9eddc5d8/resourceGroups/portfolio-develeap"
+        }
+
+        log_analytics_workspace = {
+          location = "westeurope"
+          name     = "portfolio-analytics-prod"
+          sku      = "PerGB2018"
+        }
+
+        cluster_name = "adam-prod"
+        dns_prefix   = "adam-prod"
+
+        tags = {
+          environment = "prod"
+          created_by  = "Adam Stegienko"
+        }
+
+        default_node_pool = {
+          name       = "adam3nodes"
+          vm_size    = "Standard_D2_v2"
+          node_count = 3
+        }
+
+        admin_username = "ubuntu"
+        ssh_public_key = "~/.ssh/azure-key.pub"
+
+        network_profile = {
+          network_plugin     = "azure"
+          load_balancer_sku  = "standard"
+          dns_service_ip     = "22.0.7.111"
+          docker_bridge_cidr = "22.0.7.0/20"
+          service_cidr       = "22.0.7.0/24"
+        }
+
+        virtual_network_name           = "adam-prod-vnet"
+        virtual_network_address_prefix = "14.0.0.0/8"
+        aks_subnet_name                = "adam-prod-subnet-1"
+        aks_subnet_address_prefix      = "14.0.0.0/16"
+
+        acr_scope               = "/subscriptions/5aca752c-8d85-4445-bf68-d30c9eddc5d8/resourceGroups/portfolio-develeap/providers/Microsoft.ContainerRegistry/registries/digitalplanner"
+        EOF
     
     - name: Terraform Format
       run: terraform fmt -recursive
@@ -37,7 +104,7 @@ jobs:
       run: terraform validate -no-color
 
     - name: Terraform Plan
-      run: terraform plan -no-color -input=false
+      run: terraform plan -no-color -var-file prod.tfvars
       continue-on-error: true
 
     - name: Terraform Plan Status
@@ -46,4 +113,4 @@ jobs:
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false
+      run: terraform apply -auto-approve -var-file prod.tfvars
