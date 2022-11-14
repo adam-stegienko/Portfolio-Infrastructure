@@ -21,12 +21,6 @@ jobs:
     - name: SCM Checkout
       uses: actions/checkout@v3
 
-    - name: Terraform SSH key given
-      run: |
-        cat <<EOF > ~/.ssh/azure-key.pub
-        ${{ env.AZURE_SSH_KEY }}
-        EOF
-
     - name: Terraform environmental (prod) values given
       run: |
         cat << EOF > prod.tfvars
@@ -65,7 +59,7 @@ jobs:
         }
 
         admin_username = "ubuntu"
-        ssh_public_key = "~/.ssh/azure-key.pub"
+        ssh_public_key = ${{ env.AZURE_SSH_KEY }}
 
         network_profile = {
           network_plugin     = "azure"
