@@ -23,7 +23,9 @@ jobs:
 
     - name: Terraform SSH key given
       run: |
-        ${{ env.AZURE_SSH_KEY }} > ~/.ssh/azure-key.pub
+        cat <<EOF > ~/.ssh/azure-key.pub
+        ${{ env.AZURE_SSH_KEY }}
+        EOF
 
     - name: Terraform environmental (prod) values given
       run: |
