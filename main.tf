@@ -15,6 +15,5 @@ module "Kubernetes" {
   virtual_network_address_prefix = var.virtual_network_address_prefix
   aks_subnet_name                = var.aks_subnet_name
   aks_subnet_address_prefix      = var.aks_subnet_address_prefix
-  bootcamp_admin_group_id        = var.bootcamp_admin_group_id
   acr_scope                      = var.acr_scope
 }

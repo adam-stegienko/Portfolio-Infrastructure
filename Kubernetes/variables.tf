@@ -54,10 +54,6 @@ variable "aks_subnet_address_prefix" {
   description = "Subnet address prefix."
 }
 
-variable "bootcamp_admin_group_id" {
-  description = ""
-}
-
 variable "acr_scope" {
   description = ""
 }
