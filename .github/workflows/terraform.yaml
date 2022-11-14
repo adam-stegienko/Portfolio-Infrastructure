@@ -20,7 +20,7 @@ jobs:
 
     - name: Git Config Init
       run: |
-        git config --global url."https://oauth2:${{ env.GITHUB_TOKEN }}@github.com".insteadOf https://github.com
+        git config --global url."https://oauth2:${{ env.GITHUB_TOKEN }}@github.com".insteadOf git://github.com
         terraform init -upgrade
 
     - name: Terraform Validate
