@@ -23,61 +23,61 @@ jobs:
     - name: SCM Checkout
       uses: actions/checkout@v3
 
-    # - name: Terraform environmental (prod) values given
-    #   run: |
-    #     cat << EOT > prod.tfvars
-    #     service_principal = {
-    #       subscription_id = "${{ env.ARM_SUBSCRIPTION_ID }}"
-    #       tenant_id       = "${{ env.ARM_TENANT_ID }}"
-    #       client_id       = "${{ env.ARM_CLIENT_ID }}"
-    #       client_secret   = "${{ env.ARM_CLIENT_SECRET }}"
-    #       principal_id    = "${{ env.PRINCIPAL_ID }}"
-    #     }
+    - name: Terraform environmental (prod) values given
+      run: |
+        cat << EOT > prod.tfvars
+        service_principal = {
+          subscription_id = "${{ env.ARM_SUBSCRIPTION_ID }}"
+          tenant_id       = "${{ env.ARM_TENANT_ID }}"
+          client_id       = "${{ env.ARM_CLIENT_ID }}"
+          client_secret   = "${{ env.ARM_CLIENT_SECRET }}"
+          principal_id    = "${{ env.PRINCIPAL_ID }}"
+        }
 
-    #     resource_group = {
-    #       location = "West Europe"
-    #       name     = "portfolio-develeap"
-    #       id       = "/subscriptions/5aca752c-8d85-4445-bf68-d30c9eddc5d8/resourceGroups/portfolio-develeap"
-    #     }
+        resource_group = {
+          location = "West Europe"
+          name     = "portfolio-develeap"
+          id       = "/subscriptions/5aca752c-8d85-4445-bf68-d30c9eddc5d8/resourceGroups/portfolio-develeap"
+        }
 
-    #     log_analytics_workspace = {
-    #       location = "westeurope"
-    #       name     = "portfolio-analytics-prod"
-    #       sku      = "PerGB2018"
-    #     }
+        log_analytics_workspace = {
+          location = "westeurope"
+          name     = "portfolio-analytics-prod"
+          sku      = "PerGB2018"
+        }
 
-    #     cluster_name = "adam-prod"
-    #     dns_prefix   = "adam-prod"
+        cluster_name = "adam-prod"
+        dns_prefix   = "adam-prod"
 
-    #     tags = {
-    #       environment = "prod"
-    #       created_by  = "Adam Stegienko"
-    #     }
+        tags = {
+          environment = "prod"
+          created_by  = "Adam Stegienko"
+        }
 
-    #     default_node_pool = {
-    #       name       = "adam3nodes"
-    #       vm_size    = "Standard_D2_v2"
-    #       node_count = 3
-    #     }
+        default_node_pool = {
+          name       = "adam3nodes"
+          vm_size    = "Standard_D2_v2"
+          node_count = 3
+        }
 
-    #     admin_username = "ubuntu"
-    #     ssh_public_key = "${{ env.AZURE_SSH_KEY }}"
+        admin_username = "ubuntu"
+        ssh_public_key = "${{ env.AZURE_SSH_KEY }}"
 
-    #     network_profile = {
-    #       network_plugin     = "azure"
-    #       load_balancer_sku  = "standard"
-    #       dns_service_ip     = "22.0.7.111"
-    #       docker_bridge_cidr = "22.0.7.0/20"
-    #       service_cidr       = "22.0.7.0/24"
-    #     }
+        network_profile = {
+          network_plugin     = "azure"
+          load_balancer_sku  = "standard"
+          dns_service_ip     = "22.0.7.111"
+          docker_bridge_cidr = "22.0.7.0/20"
+          service_cidr       = "22.0.7.0/24"
+        }
 
-    #     virtual_network_name           = "adam-prod-vnet"
-    #     virtual_network_address_prefix = "14.0.0.0/8"
-    #     aks_subnet_name                = "adam-prod-subnet-1"
-    #     aks_subnet_address_prefix      = "14.0.0.0/16"
+        virtual_network_name           = "adam-prod-vnet"
+        virtual_network_address_prefix = "14.0.0.0/8"
+        aks_subnet_name                = "adam-prod-subnet-1"
+        aks_subnet_address_prefix      = "14.0.0.0/16"
 
-    #     acr_scope               = "/subscriptions/5aca752c-8d85-4445-bf68-d30c9eddc5d8/resourceGroups/portfolio-develeap/providers/Microsoft.ContainerRegistry/registries/digitalplanner"
-    #     EOT
+        acr_scope               = "/subscriptions/5aca752c-8d85-4445-bf68-d30c9eddc5d8/resourceGroups/portfolio-develeap/providers/Microsoft.ContainerRegistry/registries/digitalplanner"
+        EOT
     
     - name: Terraform Format
       run: terraform fmt -recursive
