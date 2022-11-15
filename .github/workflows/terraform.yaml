@@ -22,6 +22,11 @@ jobs:
     - name: SCM Checkout
       uses: actions/checkout@v3
 
+    - name: Log in with Azure
+      uses: azure/login@v1
+      with:
+        creds: '${{ env.AZURE_CREDENTIALS }}'
+
     - name: Terraform environmental (prod) values given
       run: |
         cat << EOT > prod.tfvars
@@ -107,20 +112,9 @@ jobs:
       if: steps.plan.outcome == 'failure'
       run: exit 1
 
-    - name: Log in with Azure
-      uses: azure/login@v1
-      with:
-        creds: '${{ env.AZURE_CREDENTIALS }}'
-  
-    - name: 'Run Azure CLI commands'
-      run: |
-          az account show
-          az group list
-          pwd 
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -auto-approve -var-file prod.tfvars
 
-    # - name: Terraform Apply
-    #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    #   run: terraform apply -auto-approve -var-file prod.tfvars
-
-    # - name: First Cleanup
-    #   run: rm prod.tfvars
+    - name: First Cleanup
+      run: rm prod.tfvars
