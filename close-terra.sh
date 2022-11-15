@@ -2,9 +2,7 @@
 
 
 terraform workspace select default
-sleep 2
 terraform workspace select prod
-sleep 2
-terraform destroy -var-file dev.tfvars -auto-approve
+terraform destroy -var-file prod.tfvars -auto-approve
 sleep 2
 echo "Terraform infra destroyed."
