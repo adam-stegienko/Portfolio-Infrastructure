@@ -6,10 +6,10 @@ data "azurerm_container_registry" "container-registry" {
 resource "helm_release" "argocd" {
   name             = "argocd"
   chart            = "./.terraform/modules/helm_release/charts/argocd"
-  namespace        = "app"
-  create_namespace = true
-  replace          = true
-  wait             = true
+  namespace        = "default"
+  # create_namespace = true
+  # replace          = true
+  # wait             = true
 
   lifecycle {
     create_before_destroy = true
@@ -23,10 +23,10 @@ resource "helm_release" "argocd" {
 resource "helm_release" "root" {
   name             = "root"
   chart            = "./.terraform/modules/helm_release/apps"
-  namespace        = "app"
-  create_namespace = true
-  replace          = true
-  wait             = false
+  namespace        = "default"
+  # create_namespace = true
+  # replace          = true
+  # wait             = false
 
   lifecycle {
     create_before_destroy = true
