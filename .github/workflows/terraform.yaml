@@ -22,6 +22,10 @@ jobs:
     - name: SCM Checkout
       uses: actions/checkout@v3
 
+    - name: Git Config Init
+      run: |
+        git config --global url."https://oauth2:${{ env.GITHUB_TOKEN }}@github.com".insteadOf ssh://git@github.com
+
     - name: Log in with Azure
       uses: azure/login@v1
       with:
@@ -82,27 +86,23 @@ jobs:
 
         acr_scope               = "/subscriptions/5aca752c-8d85-4445-bf68-d30c9eddc5d8/resourceGroups/portfolio-develeap/providers/Microsoft.ContainerRegistry/registries/digitalplanner"
         EOT
-    
-    - name: Terraform Format
-      run: terraform fmt -recursive
 
     - name: Terraform Format Check
       run: terraform fmt -check
-
-    - name: Git Config Init
-      run: |
-        git config --global url."https://oauth2:${{ env.GITHUB_TOKEN }}@github.com".insteadOf ssh://git@github.com
+      continue-on-error: true
 
     - name: Terraform Init
-      run: |
-        terraform init -upgrade
+      run: terraform init -upgrade
 
     - name: Terraform Workspace
       run: |
+        terraform workspace new prod || true
+        terraform workspace select default
         terraform workspace select prod
 
     - name: Terraform Validate
       run: terraform validate
+      continue-on-error: true
 
     - name: Terraform Plan
       run: terraform plan -var-file prod.tfvars
@@ -111,6 +111,7 @@ jobs:
     - name: Terraform Plan Status
       if: steps.plan.outcome == 'failure'
       run: exit 1
+      continue-on-error: false
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'

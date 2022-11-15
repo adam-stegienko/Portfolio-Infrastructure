@@ -4,9 +4,9 @@ data "azurerm_container_registry" "container-registry" {
 }
 
 resource "helm_release" "argocd" {
-  name             = "argocd"
-  chart            = "./.terraform/modules/helm_release/charts/argocd"
-  namespace        = "default"
+  name      = "argocd"
+  chart     = "./.terraform/modules/helm_release/charts/argocd"
+  namespace = "default"
   # create_namespace = true
   # replace          = true
   # wait             = true
@@ -21,9 +21,9 @@ resource "helm_release" "argocd" {
 }
 
 resource "helm_release" "root" {
-  name             = "root"
-  chart            = "./.terraform/modules/helm_release/apps"
-  namespace        = "default"
+  name      = "root"
+  chart     = "./.terraform/modules/helm_release/apps"
+  namespace = "default"
   # create_namespace = true
   # replace          = true
   # wait             = false
