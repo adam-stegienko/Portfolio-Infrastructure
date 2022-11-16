@@ -48,12 +48,6 @@ jobs:
           id       = "/subscriptions/5aca752c-8d85-4445-bf68-d30c9eddc5d8/resourceGroups/portfolio-develeap"
         }
 
-        log_analytics_workspace = {
-          location = "westeurope"
-          name     = "portfolio-analytics-prod"
-          sku      = "PerGB2018"
-        }
-
         cluster_name = "adam-prod"
         dns_prefix   = "adam-prod"
 
@@ -79,12 +73,33 @@ jobs:
           service_cidr       = "22.0.7.0/24"
         }
 
-        virtual_network_name           = "adam-prod-vnet"
-        virtual_network_address_prefix = "14.0.0.0/8"
-        aks_subnet_name                = "adam-prod-subnet-1"
-        aks_subnet_address_prefix      = "14.0.0.0/16"
+        
+        vnet = {
+          name           = "adam-prod-vnet"
+          address_prefix = "14.0.0.0/8"
+        }
 
-        acr_scope               = "/subscriptions/5aca752c-8d85-4445-bf68-d30c9eddc5d8/resourceGroups/portfolio-develeap/providers/Microsoft.ContainerRegistry/registries/digitalplanner"
+        subnet = {
+          name                = "adam-prod-subnet-1"
+          address_prefix      = "14.0.0.0/16"
+        }
+
+        acr = {
+          name = "digitalplanner"
+          scope = "/subscriptions/5aca752c-8d85-4445-bf68-d30c9eddc5d8/resourceGroups/portfolio-develeap/providers/Microsoft.ContainerRegistry/registries/digitalplanner"
+        }
+
+        argocd_chart = {
+          name      = "argocd"
+          chart     = "./.terraform/modules/helm_release/charts/argocd"
+          namespace = "argocd"
+        }
+
+        root_chart = {
+          name      = "root"
+          chart     = "./.terraform/modules/helm_release/apps"
+          namespace = "default"
+        }
         EOT
 
     - name: Terraform Format Check

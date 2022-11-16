@@ -36,3 +36,11 @@ output "kube_config" {
 output "resource_group_name" {
   value = var.resource_group["name"]
 }
+
+output "virtual_network_name" {
+  value = var.virtual_network_name
+}
+
+output "aks_subnet_name" {
+  value = var.aks_subnet_name
+}

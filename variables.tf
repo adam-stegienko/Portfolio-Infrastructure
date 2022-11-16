@@ -6,10 +6,6 @@ variable "dns_prefix" {
   description = ""
 }
 
-variable "log_analytics_workspace" {
-  description = ""
-}
-
 variable "resource_group" {
   description = ""
 }
@@ -38,22 +34,22 @@ variable "service_principal" {
   description = ""
 }
 
-variable "virtual_network_name" {
-  description = "Virtual network name"
+variable "vnet" {
+  description = ""
 }
 
-variable "virtual_network_address_prefix" {
-  description = "VNET address prefix"
+variable "subnet" {
+  description = ""
 }
 
-variable "aks_subnet_name" {
-  description = "Subnet Name."
+variable "acr" {
+  description = ""
 }
 
-variable "aks_subnet_address_prefix" {
-  description = "Subnet address prefix."
+variable "argocd_chart" {
+  description = ""
 }
 
-variable "acr_scope" {
+variable "root_chart" {
   description = ""
 }

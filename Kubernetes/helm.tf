@@ -1,13 +1,8 @@
-data "azurerm_container_registry" "container-registry" {
-  name                = "digitalplanner"
-  resource_group_name = "portfolio-develeap"
-}
-
 resource "helm_release" "argocd" {
-  name      = "argocd"
-  chart     = "./.terraform/modules/helm_release/charts/argocd"
-  namespace = "default"
-  # create_namespace = true
+  name             = argocd_chart["name"]
+  chart            = argocd_chart["chart"]
+  namespace        = argocd_chart["namespace"]
+  create_namespace = true
   # replace          = true
   # wait             = true
 
@@ -21,10 +16,10 @@ resource "helm_release" "argocd" {
 }
 
 resource "helm_release" "root" {
-  name      = "root"
-  chart     = "./.terraform/modules/helm_release/apps"
-  namespace = "default"
-  # create_namespace = true
+  name             = root_chart["name"]
+  chart            = root_chart["chart"]
+  namespace        = root_chart["namespace"]
+  create_namespace = true
   # replace          = true
   # wait             = false
 
