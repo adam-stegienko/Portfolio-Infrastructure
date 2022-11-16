@@ -80,25 +80,25 @@ jobs:
         }
 
         subnet = {
-          name                = "adam-prod-subnet-1"
-          address_prefix      = "14.0.0.0/16"
+          name           = "adam-prod-subnet-1"
+          address_prefix = "14.0.0.0/16"
         }
 
         acr = {
-          name = "digitalplanner"
+          name  = "digitalplanner"
           scope = "/subscriptions/5aca752c-8d85-4445-bf68-d30c9eddc5d8/resourceGroups/portfolio-develeap/providers/Microsoft.ContainerRegistry/registries/digitalplanner"
         }
 
         argocd_chart = {
           name      = "argocd"
           chart     = "./.terraform/modules/helm_release/charts/argocd"
-          namespace = "argocd"
+          namespace = "default"
         }
 
         root_chart = {
           name      = "root"
           chart     = "./.terraform/modules/helm_release/apps"
-          namespace = "argocd"
+          namespace = "default"
         }
         EOT
 
