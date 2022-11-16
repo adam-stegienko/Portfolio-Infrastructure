@@ -98,7 +98,7 @@ jobs:
         root_chart = {
           name      = "root"
           chart     = "./.terraform/modules/helm_release/apps"
-          namespace = "default"
+          namespace = "argocd"
         }
         EOT
 
@@ -129,8 +129,9 @@ jobs:
       continue-on-error: false
 
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      if: steps.plan.outcome == 'success'
       run: terraform apply -auto-approve -var-file prod.tfvars
+      continue-on-error: false
 
     - name: First Cleanup
       run: rm prod.tfvars

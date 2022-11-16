@@ -31,13 +31,3 @@ resource "helm_release" "root" {
     helm_release.argocd
   ]
 }
-
-resource "null_resource" "kubectl" {
-  provisioner "local-exec" {
-    command = "az aks get-credentials --name ${var.cluster_name} --overwrite-existing --resource-group ${var.resource_group["name"]}"
-  }
-
-  depends_on = [
-    azurerm_kubernetes_cluster.k8s
-  ]
-}
