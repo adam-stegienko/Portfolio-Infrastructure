@@ -13,4 +13,6 @@ module "Kubernetes" {
   vnet              = var.vnet
   subnet            = var.subnet
   acr               = var.acr
+  argocd_chart      = var.argocd_chart
+  root_chart        = var.root_chart
 }
