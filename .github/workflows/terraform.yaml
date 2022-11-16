@@ -118,7 +118,7 @@ jobs:
     - name: Terraform Validate
       run: terraform validate
 
-    - name: Terraform Validate
+    - name: Current Configuration
       run: az aks get-credentials --name adam-prod --overwrite-existing --resource-group portfolio-develeap || true
 
     - name: Terraform Plan
