@@ -120,11 +120,9 @@ jobs:
 
     - name: Terraform Validate
       run: az aks get-credentials --name adam-prod --overwrite-existing --resource-group portfolio-develeap || true
-      continue-on-error: true
 
     - name: Terraform Plan
       run: terraform plan -var-file prod.tfvars
-      continue-on-error: false
 
     - name: Terraform Plan Status
       if: steps.plan.outcome == 'failure'
