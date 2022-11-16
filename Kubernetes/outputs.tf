@@ -38,9 +38,9 @@ output "resource_group_name" {
 }
 
 output "virtual_network_name" {
-  value = var.virtual_network_name
+  value = var.vnet["name"]
 }
 
 output "aks_subnet_name" {
-  value = var.aks_subnet_name
+  value = var.subnet["name"]
 }

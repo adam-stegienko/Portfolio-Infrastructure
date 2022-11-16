@@ -28,7 +28,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     name           = var.default_node_pool["name"]
     vm_size        = var.default_node_pool["vm_size"]
     node_count     = var.default_node_pool["node_count"]
-    vnet_subnet_id = data.azurerm_subnet.adam-subnet.id
+    vnet_subnet_id = data.azurerm_subnet.cluster-subnet.id
   }
 
   network_profile {
@@ -48,7 +48,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   }
 
   depends_on = [
-    azurerm_virtual_network.adam-vnet
+    azurerm_virtual_network.cluster-vnet
   ]
 
   tags = var.tags
