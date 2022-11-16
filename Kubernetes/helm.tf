@@ -9,7 +9,7 @@ resource "helm_release" "argocd" {
   ]
 
   values = [
-    "${file("apps/templates/root.yaml")}"
+    "${file("${path.helm_release}/apps/templates/root.yaml")}"
   ]
 
 }
