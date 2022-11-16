@@ -3,8 +3,6 @@ resource "helm_release" "argocd" {
   chart            = var.argocd_chart["chart"]
   namespace        = var.argocd_chart["namespace"]
   create_namespace = true
-  # replace          = true
-  # wait             = true
 
   lifecycle {
     create_before_destroy = true
@@ -20,8 +18,6 @@ resource "helm_release" "root" {
   chart            = var.root_chart["chart"]
   namespace        = var.root_chart["namespace"]
   create_namespace = true
-  # replace          = true
-  # wait             = false
 
   lifecycle {
     create_before_destroy = true
