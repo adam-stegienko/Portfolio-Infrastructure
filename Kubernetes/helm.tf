@@ -1,7 +1,7 @@
 resource "helm_release" "argocd" {
-  name             = argocd_chart["name"]
-  chart            = argocd_chart["chart"]
-  namespace        = argocd_chart["namespace"]
+  name             = var.argocd_chart["name"]
+  chart            = var.argocd_chart["chart"]
+  namespace        = var.argocd_chart["namespace"]
   create_namespace = true
   # replace          = true
   # wait             = true
@@ -16,9 +16,9 @@ resource "helm_release" "argocd" {
 }
 
 resource "helm_release" "root" {
-  name             = root_chart["name"]
-  chart            = root_chart["chart"]
-  namespace        = root_chart["namespace"]
+  name             = var.root_chart["name"]
+  chart            = var.root_chart["chart"]
+  namespace        = var.root_chart["namespace"]
   create_namespace = true
   # replace          = true
   # wait             = false
