@@ -10,7 +10,7 @@ resource "azurerm_virtual_network" "cluster-vnet" {
   }
 
   tags = var.tags
-  
+
   lifecycle {
     create_before_destroy = true
   }

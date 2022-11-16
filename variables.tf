@@ -50,6 +50,6 @@ variable "argocd_chart" {
   description = ""
 }
 
-variable "root_chart" {
-  description = ""
-}
+# variable "root_chart" {
+#   description = ""
+# }

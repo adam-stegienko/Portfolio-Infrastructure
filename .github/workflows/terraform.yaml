@@ -94,12 +94,6 @@ jobs:
           chart     = "./.terraform/modules/helm_release/charts/argocd"
           namespace = "default"
         }
-
-        root_chart = {
-          name      = "root"
-          chart     = "./.terraform/modules/helm_release/apps"
-          namespace = "default"
-        }
         EOT
 
     - name: Terraform Format Check
