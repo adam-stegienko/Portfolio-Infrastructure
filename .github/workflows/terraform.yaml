@@ -127,9 +127,9 @@ jobs:
     - name: Terraform Plan Status
       if: steps.plan.outcome == 'failure'
       run: exit 1
+      continue-on-error: false
 
     - name: Terraform Apply
-      if: steps.plan.outcome == 'success'
       run: terraform apply -auto-approve -var-file prod.tfvars
 
     - name: First Cleanup
