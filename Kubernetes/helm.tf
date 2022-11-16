@@ -16,6 +16,6 @@ resource "helm_release" "root" {
   create_namespace = true
 
   depends_on = [
-    null_resource.kubectl
+    helm_release.argocd
   ]
 }
