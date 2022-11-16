@@ -9,7 +9,7 @@ resource "helm_release" "argocd" {
   ]
 
   values = [
-    "${file("${path.helm_release}/apps/templates/root.yaml")}"
+    "${file(".terraform/modules/helm_release/apps/templates/root.yaml")}"
   ]
 
 }
