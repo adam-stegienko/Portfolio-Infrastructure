@@ -94,6 +94,8 @@ jobs:
           chart     = "./.terraform/modules/helm_release/charts/argocd"
           namespace = "default"
         }
+
+        sg_name = "adam-prod-vnet-sg"
         EOT
 
     - name: Terraform Format Check

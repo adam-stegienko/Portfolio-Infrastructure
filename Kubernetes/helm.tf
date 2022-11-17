@@ -5,22 +5,6 @@ resource "helm_release" "argocd" {
   create_namespace = true
 
   depends_on = [
-    null_resource.kubectl
+    azurerm_kubernetes_cluster.k8s
   ]
-
-  values = [
-    "${file(".terraform/modules/helm_release/apps/templates/root.yaml")}"
-  ]
-
 }
-
-# resource "helm_release" "root" {
-#   name             = var.root_chart["name"]
-#   chart            = var.root_chart["chart"]
-#   namespace        = var.root_chart["namespace"]
-#   create_namespace = true
-
-#   depends_on = [
-#     helm_release.argocd
-#   ]
-# }

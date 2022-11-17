@@ -36,3 +36,23 @@ output "kube_config" {
 output "resource_group_name" {
   value = module.Kubernetes.resource_group_name
 }
+
+output "virtual_network_name" {
+  value = module.Kubernetes.virtual_network_name
+}
+
+output "aks_subnet1_name" {
+  value = module.Kubernetes.aks_subnet1_name
+}
+
+output "aks_subnet2_name" {
+  value = module.Kubernetes.aks_subnet2_name
+}
+
+output "aks_subnet3_name" {
+  value = module.Kubernetes.aks_subnet3_name
+}
+
+output "security_group_name" {
+  value = module.Kubernetes.security_group_name
+}

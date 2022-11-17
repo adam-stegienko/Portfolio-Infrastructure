@@ -1,6 +1,7 @@
 #!/bin/bash
 
-terraform workspace select default
+terraform workspace new prod || true
+terraform workspace select defautl
 terraform workspace select prod
 terraform apply -var-file prod.tfvars -auto-approve
 sleep 2

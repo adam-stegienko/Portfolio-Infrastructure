@@ -3,7 +3,8 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   location   = var.resource_group["location"]
   dns_prefix = var.dns_prefix
 
-  resource_group_name = var.resource_group["name"]
+  resource_group_name        = var.resource_group["name"]
+  enable_pod_security_policy = true
 
   role_based_access_control {
     enabled = true
@@ -21,14 +22,13 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     http_application_routing {
       enabled = true
     }
-
   }
 
   default_node_pool {
-    name           = var.default_node_pool["name"]
-    vm_size        = var.default_node_pool["vm_size"]
-    node_count     = var.default_node_pool["node_count"]
-    vnet_subnet_id = data.azurerm_subnet.cluster-subnet.id
+    name           = var.node_pool["name"][0]
+    vm_size        = var.node_pool["vm_size"]
+    node_count     = var.node_pool["node_count"]
+    vnet_subnet_id = data.azurerm_subnet.cluster-subnet1.id
   }
 
   network_profile {
@@ -38,6 +38,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     docker_bridge_cidr = var.network_profile["docker_bridge_cidr"]
     service_cidr       = var.network_profile["service_cidr"]
   }
+
   service_principal {
     client_id     = var.service_principal["client_id"]
     client_secret = var.service_principal["client_secret"]
@@ -52,6 +53,22 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   ]
 
   tags = var.tags
+}
+
+resource "azurerm_kubernetes_cluster_node_pool" "node-pool2" {
+  name                  = var.node_pool["name"][1]
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
+  vm_size               = var.node_pool["vm_size"]
+  node_count            = var.node_pool["node_count"]
+  vnet_subnet_id        = data.azurerm_subnet.cluster-subnet2.id
+}
+
+resource "azurerm_kubernetes_cluster_node_pool" "node-pool3" {
+  name                  = var.node_pool["name"][2]
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
+  vm_size               = var.node_pool["vm_size"]
+  node_count            = var.node_pool["node_count"]
+  vnet_subnet_id        = data.azurerm_subnet.cluster-subnet3.id
 }
 
 resource "null_resource" "kubectl" {

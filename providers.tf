@@ -25,6 +25,8 @@ terraform {
   }
 }
 
+data "azurerm_subscription" "current" {}
+
 provider "azurerm" {
   features {}
 
@@ -35,7 +37,7 @@ provider "azurerm" {
 }
 
 provider "azuread" {
-  features {}
+  # features {}
 }
 
 provider "helm" {
@@ -46,8 +48,6 @@ provider "helm" {
 provider "kubernetes" {
   config_path = "~/.kube/config"
 }
-
-data "azurerm_subscription" "current" {}
 
 module "helm_release" {
   source = "git::git@github.com:adam-stegienko/Portfolio-Configuration.git"

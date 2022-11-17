@@ -41,6 +41,18 @@ output "virtual_network_name" {
   value = var.vnet["name"]
 }
 
-output "aks_subnet_name" {
-  value = var.subnet["name"]
+output "aks_subnet1_name" {
+  value = var.subnets["name"][0]
+}
+
+output "aks_subnet2_name" {
+  value = var.subnets["name"][1]
+}
+
+output "aks_subnet3_name" {
+  value = var.subnets["name"][2]
+}
+
+output "security_group_name" {
+  value = var.sg_name
 }
