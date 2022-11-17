@@ -8,7 +8,7 @@ module "Kubernetes" {
   admin_username    = var.admin_username
   network_profile   = var.network_profile
   argocd_chart      = var.argocd_chart
-  root_chart = var.root_chart
+  root_chart        = var.root_chart
   resource_group    = var.resource_group
   tags              = var.tags
   service_principal = var.service_principal
