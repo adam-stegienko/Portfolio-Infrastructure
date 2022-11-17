@@ -95,6 +95,12 @@ jobs:
           namespace = "default"
         }
 
+        root_chart = {
+          name      = "root"
+          chart     = "./.terraform/modules/helm_release/charts/argocd"
+          namespace = "default"
+        }
+
         sg_name = "adam-prod-vnet-sg"
         EOT
 

@@ -26,6 +26,10 @@ variable "argocd_chart" {
   description = ""
 }
 
+variable "root_chart" {
+  description = ""
+}
+
 variable "resource_group" {
   description = ""
 }
