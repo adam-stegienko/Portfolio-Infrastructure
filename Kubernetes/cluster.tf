@@ -4,7 +4,6 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   dns_prefix = var.dns_prefix
 
   resource_group_name        = var.resource_group["name"]
-  enable_pod_security_policy = true
 
   role_based_access_control {
     enabled = true
