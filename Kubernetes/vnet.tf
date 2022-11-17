@@ -27,4 +27,8 @@ resource "azurerm_virtual_network" "cluster-vnet" {
   lifecycle {
     create_before_destroy = true
   }
+
+  depends_on = [
+    azurerm_network_security_group.cluster-sg-in
+  ]
 }

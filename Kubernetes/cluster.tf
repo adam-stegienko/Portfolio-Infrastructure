@@ -60,6 +60,14 @@ resource "azurerm_kubernetes_cluster_node_pool" "node-pool2" {
   vm_size               = var.node_pool["vm_size"]
   node_count            = var.node_pool["node_count"]
   vnet_subnet_id        = data.azurerm_subnet.cluster-subnet2.id
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  depends_on = [
+    azurerm_kubernetes_cluster.k8s
+  ]
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "node-pool3" {
@@ -68,6 +76,14 @@ resource "azurerm_kubernetes_cluster_node_pool" "node-pool3" {
   vm_size               = var.node_pool["vm_size"]
   node_count            = var.node_pool["node_count"]
   vnet_subnet_id        = data.azurerm_subnet.cluster-subnet3.id
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  depends_on = [
+    azurerm_kubernetes_cluster_node_pool.node-pool2
+  ]
 }
 
 resource "null_resource" "kubectl" {
@@ -76,6 +92,6 @@ resource "null_resource" "kubectl" {
   }
 
   depends_on = [
-    azurerm_kubernetes_cluster.k8s
+    azurerm_kubernetes_cluster_node_pool.node-pool3
   ]
 }

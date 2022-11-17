@@ -5,6 +5,6 @@ resource "helm_release" "argocd" {
   create_namespace = true
 
   depends_on = [
-    azurerm_kubernetes_cluster.k8s
+    null_resource.kubectl
   ]
 }
