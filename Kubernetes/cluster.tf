@@ -3,7 +3,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   location   = var.resource_group["location"]
   dns_prefix = var.dns_prefix
 
-  resource_group_name        = var.resource_group["name"]
+  resource_group_name = var.resource_group["name"]
 
   role_based_access_control {
     enabled = true
