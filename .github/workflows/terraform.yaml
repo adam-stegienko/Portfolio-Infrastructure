@@ -99,7 +99,7 @@ jobs:
 
         root_chart = {
           name      = "root"
-          chart     = "./.terraform/modules/helm_release/charts/argocd"
+          chart     = "./.terraform/modules/helm_release/apps"
           namespace = "default"
         }
 
