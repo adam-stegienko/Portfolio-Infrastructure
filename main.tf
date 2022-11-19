@@ -16,4 +16,5 @@ module "Kubernetes" {
   subnets           = var.subnets
   acr               = var.acr
   sg_name           = var.sg_name
+  secret            = var.secret
 }

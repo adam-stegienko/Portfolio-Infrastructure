@@ -16,6 +16,8 @@ jobs:
       AZURE_SSH_KEY: ${{ secrets.AZURE_SSH_KEY }}
       PRINCIPAL_ID: ${{ secrets.PRINCIPAL_ID }}
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+      SECRET_CLIENT_ID: ${{ secrets.SECRET_CLIENT_ID }}
+      SECRET_CLIENT_SECRET: ${{ secrets.SECRET_CLIENT_SECRET }}
     name: 'Terraform'
     runs-on: ubuntu-latest
     steps:
@@ -102,6 +104,12 @@ jobs:
         }
 
         sg_name = "adam-prod-vnet-sg"
+
+        secret = {
+          name         = "azure-secret-sp"
+          ClientID     = "${{ env.SECRET_CLIENT_ID }}"
+          ClientSecret = "${{ env.SECRET_CLIENT_SECRET }}"
+        }
         EOT
 
     - name: Terraform Format Check

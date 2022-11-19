@@ -57,3 +57,7 @@ variable "acr" {
 variable "sg_name" {
   description = ""
 }
+
+variable "secret" {
+  description = ""
+}
