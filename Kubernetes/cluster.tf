@@ -54,37 +54,37 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   tags = var.tags
 }
 
-resource "azurerm_kubernetes_cluster_node_pool" "node-pool2" {
-  name                  = var.node_pool["name"][1]
-  kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
-  vm_size               = var.node_pool["vm_size"]
-  node_count            = var.node_pool["node_count"]
-  vnet_subnet_id        = data.azurerm_subnet.cluster-subnet2.id
+# resource "azurerm_kubernetes_cluster_node_pool" "node-pool2" {
+#   name                  = var.node_pool["name"][1]
+#   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
+#   vm_size               = var.node_pool["vm_size"]
+#   node_count            = var.node_pool["node_count"]
+#   vnet_subnet_id        = data.azurerm_subnet.cluster-subnet2.id
 
-  lifecycle {
-    create_before_destroy = true
-  }
+#   lifecycle {
+#     create_before_destroy = true
+#   }
 
-  depends_on = [
-    azurerm_kubernetes_cluster.k8s
-  ]
-}
+#   depends_on = [
+#     azurerm_kubernetes_cluster.k8s
+#   ]
+# }
 
-resource "azurerm_kubernetes_cluster_node_pool" "node-pool3" {
-  name                  = var.node_pool["name"][2]
-  kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
-  vm_size               = var.node_pool["vm_size"]
-  node_count            = var.node_pool["node_count"]
-  vnet_subnet_id        = data.azurerm_subnet.cluster-subnet3.id
+# resource "azurerm_kubernetes_cluster_node_pool" "node-pool3" {
+#   name                  = var.node_pool["name"][2]
+#   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
+#   vm_size               = var.node_pool["vm_size"]
+#   node_count            = var.node_pool["node_count"]
+#   vnet_subnet_id        = data.azurerm_subnet.cluster-subnet3.id
 
-  lifecycle {
-    create_before_destroy = true
-  }
+#   lifecycle {
+#     create_before_destroy = true
+#   }
 
-  depends_on = [
-    azurerm_kubernetes_cluster_node_pool.node-pool2
-  ]
-}
+#   depends_on = [
+#     azurerm_kubernetes_cluster_node_pool.node-pool2
+#   ]
+# }
 
 resource "null_resource" "kubectl" {
   provisioner "local-exec" {
