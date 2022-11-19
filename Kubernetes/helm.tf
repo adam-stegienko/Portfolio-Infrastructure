@@ -5,7 +5,7 @@ resource "helm_release" "argocd" {
   create_namespace = true
 
   depends_on = [
-    kubernetes_secret.azure-secret-sp
+    null_resource.kubectl
   ]
 }
 

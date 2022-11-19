@@ -9,6 +9,6 @@ resource "kubernetes_secret" "azure-secret-sp" {
   }
 
   depends_on = [
-    null_resource.kubectl
+    azurerm_kubernetes_cluster_node_pool.node-pool3
   ]
 }
