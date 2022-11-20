@@ -5,7 +5,7 @@ resource "helm_release" "argocd" {
   create_namespace = true
 
   depends_on = [
-    null_resource.kubectl
+    kubernetes_secret.azure-secret-sp
   ]
 }
 
@@ -14,6 +14,8 @@ resource "helm_release" "root" {
   chart            = var.root_chart["chart"]
   namespace        = var.root_chart["namespace"]
   create_namespace = true
+
+  timeout = 10
 
   depends_on = [
     helm_release.argocd

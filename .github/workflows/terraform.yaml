@@ -110,6 +110,16 @@ jobs:
           ClientID     = "${{ env.SECRET_CLIENT_ID }}"
           ClientSecret = "${{ env.SECRET_CLIENT_SECRET }}"
         }
+
+        security_rule = {
+          priority                   = 100
+          access                     = "Allow"
+          protocol                   = "Tcp"
+          source_port_range          = "*"
+          destination_port_range     = "*"
+          source_address_prefix      = "*"
+          destination_address_prefix = "*"
+        }
         EOT
 
     - name: Terraform Format Check

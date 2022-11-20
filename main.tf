@@ -17,4 +17,5 @@ module "Kubernetes" {
   acr               = var.acr
   sg_name           = var.sg_name
   secret            = var.secret
+  security_rule     = var.security_rule
 }

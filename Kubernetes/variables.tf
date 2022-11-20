@@ -61,3 +61,7 @@ variable "sg_name" {
 variable "secret" {
   description = ""
 }
+
+variable "security_rule" {
+  description = ""
+}

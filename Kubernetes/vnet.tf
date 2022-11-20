@@ -7,19 +7,19 @@ resource "azurerm_virtual_network" "cluster-vnet" {
   subnet {
     name           = var.subnets["name"][0]
     address_prefix = var.subnets["address_prefix"][0]
-    security_group = azurerm_network_security_group.cluster-sg-in.id
+    security_group = azurerm_network_security_group.cluster-sg.id
   }
 
   subnet {
     name           = var.subnets["name"][1]
     address_prefix = var.subnets["address_prefix"][1]
-    security_group = azurerm_network_security_group.cluster-sg-in.id
+    security_group = azurerm_network_security_group.cluster-sg.id
   }
 
   subnet {
     name           = var.subnets["name"][2]
     address_prefix = var.subnets["address_prefix"][2]
-    security_group = azurerm_network_security_group.cluster-sg-in.id
+    security_group = azurerm_network_security_group.cluster-sg.id
   }
 
   tags = var.tags
@@ -29,6 +29,6 @@ resource "azurerm_virtual_network" "cluster-vnet" {
   }
 
   depends_on = [
-    azurerm_network_security_group.cluster-sg-in
+    azurerm_network_security_group.cluster-sg
   ]
 }
